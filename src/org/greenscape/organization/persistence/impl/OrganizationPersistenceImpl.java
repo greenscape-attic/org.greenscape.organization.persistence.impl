@@ -4,13 +4,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-
 import org.greenscape.organization.OrganizationEntity;
 import org.greenscape.organization.OrganizationModel;
 import org.greenscape.organization.persistence.OrganizationPersistence;
 import org.greenscape.persistence.DocumentModelBase;
 import org.greenscape.persistence.PersistenceService;
+import org.greenscape.persistence.annotations.Model;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -38,7 +37,7 @@ public class OrganizationPersistenceImpl implements OrganizationPersistence {
 	@Override
 	public Collection<OrganizationEntity> findAll() {
 		return manager.executeQuery(OrganizationEntity.class, "select * from "
-				+ OrganizationEntity.class.getAnnotation(Entity.class).name());
+				+ OrganizationEntity.class.getAnnotation(Model.class).name());
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class OrganizationPersistenceImpl implements OrganizationPersistence {
 			manager.update(organizationEntity);
 		} else {
 			// get organization id
-			String modelName = OrganizationEntity.class.getAnnotation(Entity.class).name();
+			String modelName = OrganizationEntity.class.getAnnotation(Model.class).name();
 
 			if (manager.modelExists(modelName)) {
 				List<?> result = (List<?>) manager.executeQuery("select max(" + OrganizationEntity.ORGANIZATION_ID

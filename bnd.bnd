@@ -1,7 +1,7 @@
-Bundle-Version: 0.1.0
+Bundle-Version: 0.2.0
 -buildpath: org.greenscape.organization.persistence;version=latest,\
 	org.eclipse.osgi.services,\
-	org.greenscape.persistence;version=latest,\
-	javax.persistence
+	org.greenscape.persistence;version=latest
 Private-Package: org.greenscape.organization.persistence.impl
 -dsannotations: *
+-sources: false
