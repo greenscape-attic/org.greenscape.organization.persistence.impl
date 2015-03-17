@@ -20,7 +20,7 @@ public class OrganizationPersistenceImpl implements OrganizationPersistence {
 
 	@Override
 	public OrganizationEntity findById(Object id) {
-		return manager.findById(OrganizationEntity.class, id);
+		return manager.findById(OrganizationEntity.class, id.toString());
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class OrganizationPersistenceImpl implements OrganizationPersistence {
 
 	@Override
 	public OrganizationEntity save(OrganizationEntity organizationEntity) {
-		if (organizationEntity.getOrganizationId() != null && organizationEntity.getOrganizationId() > 0) {
+		if (organizationEntity.getOrganizationId() != null && !organizationEntity.getOrganizationId().equals("")) {
 			organizationEntity.setModifiedDate(new Date());
 			manager.update(organizationEntity);
 		} else {
@@ -53,16 +53,12 @@ public class OrganizationPersistenceImpl implements OrganizationPersistence {
 				List<?> result = (List<?>) manager.executeQuery("select max(" + OrganizationEntity.ORGANIZATION_ID
 						+ ") as maxOrgId from " + modelName);
 				if (result == null || result.isEmpty()) {
-					organizationEntity.setOrganizationId(1L);
 				} else {
 					DocumentModelBase model = (DocumentModelBase) result.get(0);
-					organizationEntity.setOrganizationId((Long) model.getProperty("maxOrgId") + 1);
 				}
 			} else {
-				organizationEntity.setOrganizationId(1L);
 			}
 			Date today = new Date();
-			organizationEntity.setCreateDate(today);
 			organizationEntity.setModifiedDate(today);
 			manager.save(organizationEntity);
 		}

@@ -1,7 +1,10 @@
 Bundle-Version: 0.2.0
--buildpath: org.greenscape.organization.persistence;version=latest,\
+-buildpath:  \
+	org.greenscape.organization.persistence;version=latest,\
 	org.eclipse.osgi.services,\
-	org.greenscape.persistence;version=latest
+	org.greenscape.persistence;version=latest,\
+	org.greenscape.organization;version=latest
 Private-Package: org.greenscape.organization.persistence.impl
 -dsannotations: *
--sources: false
+javac.source: 1.8
+javac.target: 1.8
